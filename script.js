@@ -5,27 +5,57 @@ const nameInput = document.querySelector('#name');
 const emailInput = document.querySelector('#email');
 const studentList = document.querySelector('#student-list ul');
 
+
+
+function addStudent(name, email) {
+    const listItem = document.createElement('li');
+    listItem.textContent = `${name} - ${email}`; 
+    studentList.appendChild(listItem); 
+}
+
+function renderStudentList(students) {
+    // Clear the current list
+    studentList.innerHTML = '';
+    
+    // Loop through the student array and add each to the list
+    students.forEach(student => {
+        addStudent(student.name, student.email);
+    });
+}
+
+
+    
+// const sampleStudents = [
+//     { name: 'John Doe', email: 'john.doe@example.com' },
+//     { name: 'Jane Smith', email: 'jane.smith@example.com' }
+// ];
+
+// renderStudentList(sampleStudents);
+
+
+
+const students = []; // Array to store student data
+
 form.addEventListener('submit', (event) => {
     event.preventDefault();
 
-    // Capture and trim inputs
     const name = nameInput.value.trim();
     const email = emailInput.value.trim();
 
-    // Validate inputs
     if (!name || !email) {
-        alert('Both fields are required!');
+        alert('Please fill out both fields!');
         return;
     }
 
-    // Create a new list item
-    const listItem = document.createElement('li');
-    listItem.textContent = `${name} - ${email}`;
+    // Add the new student to the array
+    students.push({ name, email });
 
-    // Add the new student to the list
-    studentList.appendChild(listItem);
+    // Re-render the student list
+    renderStudentList(students);
 
-    // Clear the input fields
     nameInput.value = '';
     emailInput.value = '';
+
+    alert("Student Added Successfully!");
 });
+
